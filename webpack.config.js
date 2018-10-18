@@ -1,9 +1,33 @@
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
+
 module.exports = {
-  name: 'base',
   mode: 'development',
-  entry: './foo.js',
+  entry: './src/client/index.js',
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'foo.bundle.js'
-  }
+    filename: 'bundle.js',
+  },
+  devServer: {
+    contentBase: path.join(__dirname, 'dist'),
+    port: 8080,
+    proxy: {
+      '/api': 'http://localhost:3000'
+    }
+  },
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader"
+        }
+      }
+    ]
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: 'src/index.html'
+    })
+  ]
 }
