@@ -1,0 +1,24 @@
+{
+  "name": "newer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon src/index.js --exec babel-node",
+    "build": "webpack"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4",
+    "sqlite": "^3.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/node": "^7.0.0",
+    "@babel/preset-env": "^7.1.0",
+    "nodemon": "^1.18.4",
+    "webpack": "^4.21.0",
+    "webpack-command": "^0.4.1"
+  }
+}
