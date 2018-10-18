@@ -11,8 +11,8 @@ class DataBridge {
   async items() {
     return await this._db.all('SELECT * from ITEM');
   }
-  async item(id) {
-    return await this._db.get(`SELECT * from ITEM where id = ${id}`);
+  async item(no) {
+    return await this._db.get(`SELECT * from ITEM where no = ${no}`);
   }
   async close() {
     if(this._db) {
