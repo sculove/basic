@@ -13,12 +13,17 @@ class DatabaseBridge {
   async insertItem({
     title,
     content,
-    image
+    star,
+    image,
+    referenceUrl
   }) {
-    return await this._db.run(`INSERT INTO ITEM (title, content, image) VALUES (${title}, ${content}, ${image})`)
+    return await this._db.run(`INSERT INTO MOVIE 
+      (title, content, star, image, reference_url, reg_date) VALUES(
+      '${title}', '${content}', '${star}', '${image}', '${referenceUrl}', CURRENT_TIMESTAMP
+      )`);
   }
   async deleteItem(no) {
-    return await this._db.get(`DELETE from ITEM where no = ${no}`);
+    return await this._db.get(`DELETE from MOVIE where no = ${no}`);
   }
   async updateItem(no, {
     title,
@@ -38,23 +43,23 @@ class DatabaseBridge {
     }
 
     if (columns) {
-      return await this._db.get(`UPDATE ITEM SET ${columns} where no = ${no}`);  
+      return await this._db.get(`UPDATE MOVIE SET ${columns} where no = ${no}`);
     } else {
       return;
     }
   }
   async items() {
-    return await this._db.all('SELECT * from ITEM');
+    return await this._db.all('SELECT * from MOVIE');
   }
   async item(no) {
-    return await this._db.get(`SELECT * from ITEM where no = ${no}`);
+    return await this._db.get(`SELECT * from MOVIE where no = ${no}`);
   }
   async close() {
-    if(this._db) {
+    if (this._db) {
       await this._db.close();
       this._db = null;
     }
-  }  
+  }
 }
 
 export default new DatabaseBridge();
